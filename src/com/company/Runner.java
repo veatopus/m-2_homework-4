@@ -34,7 +34,7 @@ public class Runner extends Thread {
                 System.out.println("бежит к финишу");
                 try { sleep(5000); } catch (InterruptedException ignored) { }
 
-                System.out.println("бежит к " + runnerF.getName());
+                System.out.println("бежит к " + runnerS.getName()); // поменял букву R на S
 
                 try { sleep(5000); } catch (InterruptedException ignored) { }
 
