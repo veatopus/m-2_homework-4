@@ -25,55 +25,38 @@ public class Runner extends Thread {
     }
 
     public synchronized void rice() {
-        if (reverse) {
-            if ((getName().equals("runner1"))) {
-                System.out.println(getName() + " взял палку и забег окончен");
-                return;
-            }
-            System.out.println(getName() + " взял палку и бежит к " + runnerS.getName());
-            try {
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println(getName() + " взял палку");
+        try { sleep(500); } catch (InterruptedException ignored) { }
 
         if (!reverse) {
             if (getName().equals("runner5")) {
-                System.out.println(getName() + " взял палку и бежит к финишу");
-                try {
-                    sleep(5000);
-                } catch (InterruptedException ignored) {
-                }
-
                 reverse = true;
+                System.out.println("бежит к финишу");
+                try { sleep(5000); } catch (InterruptedException ignored) { }
+
+                System.out.println("бежит к " + runnerF.getName());
+
+                try { sleep(5000); } catch (InterruptedException ignored) { }
+
             } else {
-                System.out.println(getName() + " взял палку и бежит к " + runnerF.getName());
-                try {
-                    sleep(5000);
-                } catch (InterruptedException ignored) {
-                }
+                System.out.println(getName() + " побежал к " + runnerF.getName());
+                try { sleep(5000); } catch (InterruptedException ignored) { }
                 runnerF.start();
-                try {
-                    sleep(15000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }
-        if (getName().equals("runner5")) {
-            System.out.println(getName() + " бежит к " + runnerS.getName());
-            try {
-                sleep(5000);
-            } catch (InterruptedException ignored) {
+                try { runnerF.join(); } catch (InterruptedException ignored) { }
+
             }
         }
 
+        if (getName().equals("runner5"))
+            return;
 
-        if (i > 0 && this.reverse) {
-            this.runnerS.setReverse(true);
-            this.runnerS.rice();
-            i--;
-        }
+        System.out.println(getName() + " взял палку");
+        try { sleep(500); } catch (InterruptedException ignored) { }
+        if (!(getName().equals("runner1")))
+            System.out.println(getName() + " побежал передавать палку " + runnerS.getName());
+        else
+            System.out.println("забег окончен");
+        try { sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
+
     }
-
 }
